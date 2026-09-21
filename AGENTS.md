@@ -1,22 +1,27 @@
 # zai-widget — project notes
 
-Android clock-style home-screen widget for Z.ai GLM Coding Plan quota/runway. Companion to `Projects/zai-usage/` (CLI). Package `in.cashlessconsumer.zaiwidget` — K2 requires backticked `` `in` `` in package/import paths (same gotcha as zo-voice; applicationId/namespace stay plain strings).
+Android home-screen widget showing GLM Coding Plan runway/usage as a clock-style dial.
+Repo: `LogicIncZo/zai-widget`. Companion of `Projects/zai-usage` (same endpoints, Kotlin port of its runway math).
 
-## Ground-truth API facts (verified 2026-09-21 against live API via zai-usage)
+## Facts
 
-- Auth: `Authorization: Bearer <GLM coding-plan key>` on `https://api.z.ai`.
-- `GET /api/monitor/usage/quota/limit` → `data.limits[]` with `unit` (3 = 5-hour tokens, 6 = weekly tokens, 4 = monthly tokens, 5 = tool calls), `percentage`, `nextResetTime` (epoch ms = end of current 5h window).
-- `GET /api/biz/customer-package-reset/list?targetType=PERSONAL` → `data.lastFiveHourResetTime` ("yyyy-MM-dd HH:mm:ss" UTC+8), `fiveHourResets`/`weekResets` arrays (`available`, `expireTime`).
-- Phone calls these directly — no proxy, key stays on device in EncryptedSharedPreferences.
+- Package `in.cashlessconsumer.zaiwidget`; minSdk 26, target/compile 35, AGP 8.7.3, Gradle 8.10, JDK 17, buildTools 34.0.0 (same pins as zo-voice).
+- **Zero dependencies**: plain Views + RemoteViews (no Compose/AndroidX), `HttpURLConnection` for API calls. Only test dep is JUnit 4.
+- Endpoints (GET, `Authorization: Bearer <GLM key>`): `/api/monitor/usage/quota/limit` and `/api/biz/customer-package-reset/list?targetType=PERSONAL`. Response gate: `success:true` else error string.
+- Limit `unit` mapping (verified against zai-usage): 3 = 5-hour tokens, 6 = weekly, 4 = monthly, 5 = tool calls. `percentage` 0–100, `nextResetTime` epoch-ms = end of window.
+- Runway ETA ported from zai-usage `etaHours`: `rate = pct/hoursInto; (100-pct)/rate`, capped at window remainder; ∞ before any usage; 0 when ≥100% or <15 min left.
+- Dial is a Canvas-drawn bitmap set into an `ImageView` via RemoteViews (512px, regenerated every refresh). Needle = fraction of 5h window elapsed; ring = % used; color thresholds 50/80%.
+- Updates: `updatePeriodMillis` 30 min (Android minimum) + tap-to-refresh broadcast (`in.cashlessconsumer.zaiwidget.REFRESH`). Key in `EncryptedSharedPreferences` via androidx security-crypto (only dependency).
+- Config activity doubles as the `APPWIDGET_CONFIGURE` target — launcher opens it on widget add; saving triggers an immediate refresh.
 
-## Widget model
+## Gotchas (first build)
 
-- Ring = % quota used; needle = time through the 5h window (up = reset imminent). Texts: 5h %, reset countdown (Z8 → remaining), week %, tools %, packs note, runway ETA.
-- Runway math ported from zai-usage `etaHours` (burn-rate extrapolation, capped at remaining window). Tests in `RunwayTest` guard: infinite before usage, 0 when exhausted/near-end, rate math (50% in 1h → 1h left), needle full-circle sweep.
-- Refresh: `updatePeriodMillis=1800000` (Android minimum) + tap-to-refresh broadcast. Live runs at build time are manual (no network in unit tests).
+- K2 rejects `in` in package paths — backtick-escape: ``package `in`.cashlessconsumer.zaiwidget`` (same as zo-voice).
+- JUnit `assertEquals(0.0, etaHours(...), 1e-9)` fails to resolve when the fn returns `Double?` — unbox with `!!`.
+- `etaHours(50, 1h, 5h)` = 1.0 (rate 50%/h → 1h left), NOT (100-pct) hours — the burn rate matters; test it that way.
+- packsNote reads "1 reset pack" (singular/plural handled).
 
-## Build
+## Verify
 
-AGP 8.7.3 + Gradle 8.10 + JDK 17 + compileSdk 35, buildTools 34.0.0, SDK at `/opt/android-sdk` (local.properties). `make verify` = test + lint + assembleDebug. Zero runtime deps (HttpURLConnection + org.json only — no Compose/OkHttp/AndroidX libs). JUnit 4 test-only dep.
-
-CI: `.github/workflows/android.yml` — tests + lint + APK artifact on push. Releases: tag `v*` → release workflow attaches APK.
+`make verify` = `testDebugUnitTest` + `lintDebug` + `assembleDebug`. Local SDK at `/opt/android-sdk` (`local.properties`, gitignored).
+CI (`.github/workflows/android.yml`): tests + lint + debug APK artifact on every push to main.
