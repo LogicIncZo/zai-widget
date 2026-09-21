@@ -15,7 +15,7 @@ class SettingsActivity : Activity() {
         val input = findViewById<EditText>(R.id.key_input)
         Prefs.apiKey(this)?.let { input.setText(it) }
         findViewById<Button>(R.id.save).setOnClickListener {
-            Prefs.setApiKey(this, input.text.toString())
+            Prefs.saveKey(this, input.text.toString())
             val mgr = AppWidgetManager.getInstance(this)
             val ids = mgr.getAppWidgetIds(ComponentName(this, WidgetProvider::class.java))
             val result = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
