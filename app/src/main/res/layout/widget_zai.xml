@@ -3,46 +3,91 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="center_vertical"
-    android:padding="8dp"
+    android:padding="10dp"
     android:background="@drawable/widget_bg">
 
-    <ImageView
-        android:id="@+id/dial"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:contentDescription="@string/widget_desc" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextClock
+            android:id="@+id/clock_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:format12Hour="h:mm"
+            android:format24Hour="HH:mm"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#E6EDF3" />
+
+        <TextClock
+            android:id="@+id/clock_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:format12Hour="EEE, d MMM"
+            android:format24Hour="EEE, d MMM"
+            android:textSize="13sp"
+            android:textColor="#8B949E" />
+
+        <TextClock
+            android:id="@+id/clock_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:format12Hour="EEEE"
+            android:format24Hour="EEEE"
+            android:textSize="11sp"
+            android:textColor="#6E7681" />
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="10dp"
-        android:orientation="vertical">
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/big"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#E6EDF3"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:text="GLM 5h" />
+        <ImageView
+            android:id="@+id/dial"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:contentDescription="@string/widget_desc" />
 
-        <TextView
-            android:id="@+id/sub"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="#8B949E"
-            android:textSize="12sp"
-            android:text="tap to set key" />
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/row2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#8B949E"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/big"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#E6EDF3"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:text="GLM 5h" />
+
+            <TextView
+                android:id="@+id/sub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#8B949E"
+                android:textSize="12sp"
+                android:text="tap to set key" />
+
+            <TextView
+                android:id="@+id/row2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#8B949E"
+                android:textSize="11sp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
