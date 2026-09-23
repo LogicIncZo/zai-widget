@@ -4,5 +4,7 @@
     <string name="widget_desc">GLM coding plan runway gauge</string>
     <string name="settings_title">zai-widget setup</string>
     <string name="settings_hint">Paste your GLM Coding Plan API key (the same key zai-usage CLI uses). It stays on this device and is sent only to api.z.ai.</string>
-    <string name="save">Save</string>
+    <string name="save">Save &amp; refresh</string>
+    <string name="opt_clock">Show wall-clock row (time, date, day)</string>
+    <string name="opt_stats">Show week / month / tool-call percentages</string>
 </resources>

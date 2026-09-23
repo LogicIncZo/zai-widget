@@ -86,6 +86,8 @@ class WidgetProvider : AppWidgetProvider() {
         ): RemoteViews? {
             val (v, at) = cached ?: return null
             val views = RemoteViews(ZaiWidgetApp.PACKAGE, R.layout.widget_zai)
+            views.setViewVisibility(R.id.clock_row, if (Prefs.showClock(ctx)) android.view.View.VISIBLE else android.view.View.GONE)
+            views.setViewVisibility(R.id.row2, if (Prefs.showStats(ctx)) android.view.View.VISIBLE else android.view.View.GONE)
             val pct = v.fivePct ?: 0
             val now = System.currentTimeMillis()
             views.setImageViewBitmap(R.id.dial, Gauge.draw(pct, v.needleDegrees(now)))

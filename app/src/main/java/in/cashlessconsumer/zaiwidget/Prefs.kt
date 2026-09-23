@@ -60,6 +60,12 @@ object Prefs {
     fun lastUpdateCheck(ctx: Context): Long = cache(ctx).getLong("update_check_at", 0)
     fun setLastUpdateCheck(ctx: Context, at: Long) = cache(ctx).edit().putLong("update_check_at", at).apply()
 
+    fun showClock(ctx: Context): Boolean = cache(ctx).getBoolean("show_clock", true)
+    fun setShowClock(ctx: Context, v: Boolean) = cache(ctx).edit().putBoolean("show_clock", v).apply()
+
+    fun showStats(ctx: Context): Boolean = cache(ctx).getBoolean("show_stats", true)
+    fun setShowStats(ctx: Context, v: Boolean) = cache(ctx).edit().putBoolean("show_stats", v).apply()
+
     fun updateTag(ctx: Context): String? = cache(ctx).getString("update_tag", null)?.ifEmpty { null }
     fun updateUrl(ctx: Context): String = cache(ctx).getString("update_url", null) ?: UpdateChecker.RELEASES_URL
     fun setUpdate(ctx: Context, tag: String?, url: String) =

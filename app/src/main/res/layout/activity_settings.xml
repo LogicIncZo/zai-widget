@@ -33,6 +33,24 @@
         android:textColor="#E6EDF3"
         android:textColorHint="#484F58" />
 
+    <CheckBox
+        android:id="@+id/opt_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/opt_clock"
+        android:textColor="#E6EDF3"
+        android:textSize="14sp" />
+
+    <CheckBox
+        android:id="@+id/opt_stats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/opt_stats"
+        android:textColor="#E6EDF3"
+        android:textSize="14sp" />
+
     <Button
         android:id="@+id/save"
         android:layout_width="match_parent"

@@ -13,6 +13,7 @@ Repo: `LogicIncZo/zai-widget`. Companion of `Projects/zai-usage` (same endpoints
 - Dial is a Canvas-drawn bitmap set into an `ImageView` via RemoteViews (512px, regenerated every refresh). Needle = fraction of 5h window elapsed; ring = % used; color thresholds 50/80%.
 - Updates: `updatePeriodMillis` 30 min (Android's legal minimum — 30 min IS the max auto-refresh rate) + visible ⟳ button and whole-widget tap, both firing the `in.cashlessconsumer.zaiwidget.REFRESH` broadcast. Painted views must re-attach click intents every render (RemoteViews are rebuilt fresh). Key in `EncryptedSharedPreferences` via androidx security-crypto (only dependency).
 - Config activity doubles as the `APPWIDGET_CONFIGURE` target — launcher opens it on widget add; saving triggers an immediate refresh.
+- v0.4.0 adds configuration toggles for the wall-clock row and quota-statistics row; preferences remain separate from encrypted API-key storage.
 
 ## Gotchas (first build)
 
