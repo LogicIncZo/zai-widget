@@ -11,7 +11,7 @@ Repo: `LogicIncZo/zai-widget`. Companion of `Projects/zai-usage` (same endpoints
 - Limit `unit` mapping (verified against zai-usage): 3 = 5-hour tokens, 6 = weekly, 4 = monthly, 5 = tool calls. `percentage` 0–100, `nextResetTime` epoch-ms = end of window.
 - Runway ETA ported from zai-usage `etaHours`: `rate = pct/hoursInto; (100-pct)/rate`, capped at window remainder; ∞ before any usage; 0 when ≥100% or <15 min left.
 - Dial is a Canvas-drawn bitmap set into an `ImageView` via RemoteViews (512px, regenerated every refresh). Needle = fraction of 5h window elapsed; ring = % used; color thresholds 50/80%.
-- Updates: `updatePeriodMillis` 30 min (Android minimum) + tap-to-refresh broadcast (`in.cashlessconsumer.zaiwidget.REFRESH`). Key in `EncryptedSharedPreferences` via androidx security-crypto (only dependency).
+- Updates: `updatePeriodMillis` 30 min (Android's legal minimum — 30 min IS the max auto-refresh rate) + visible ⟳ button and whole-widget tap, both firing the `in.cashlessconsumer.zaiwidget.REFRESH` broadcast. Painted views must re-attach click intents every render (RemoteViews are rebuilt fresh). Key in `EncryptedSharedPreferences` via androidx security-crypto (only dependency).
 - Config activity doubles as the `APPWIDGET_CONFIGURE` target — launcher opens it on widget add; saving triggers an immediate refresh.
 
 ## Gotchas (first build)

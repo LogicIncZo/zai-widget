@@ -13,7 +13,7 @@ Data comes straight from the same undocumented Z.ai monitor endpoints the [zai-u
 
 ## Install
 
-Grab `zai-widget-v*.apk` from [Releases](https://github.com/LogicIncZo/zai-widget/releases), sideload it, long-press your launcher → Widgets → **zai-widget**, drop it on the home screen, paste your GLM Coding Plan API key once (stored with `EncryptedSharedPreferences`). Tap the widget any time to force a refresh.
+Grab `zai-widget-v*.apk` from [Releases](https://github.com/LogicIncZo/zai-widget/releases), sideload it, long-press your launcher → Widgets → **zai-widget**, drop it on the home screen, paste your GLM Coding Plan API key once (stored with `EncryptedSharedPreferences`). Tap the ⟳ button (or the widget itself) any time to force a refresh — Android's minimum widget auto-refresh interval is 30 minutes, which is what `updatePeriodMillis` is set to; the button covers everything faster.
 
 Android refreshes home-screen widgets at most every 30 minutes (`updatePeriodMillis`); tap for instant. That cadence is deliberate — battery-kind and fine for "do I have quota?" decisions.
 

@@ -113,6 +113,8 @@ class WidgetProvider : AppWidgetProvider() {
             if (updateTag != null && updateUrl != null) {
                 views.setOnClickPendingIntent(R.id.row2, ZaiWidgetApp.openUpdate(ctx, updateUrl))
             }
+            views.setOnClickPendingIntent(R.id.refresh_btn, pendingRefresh(ctx))
+            views.setOnClickPendingIntent(R.id.root, pendingRefresh(ctx))
             return views
         }
 
@@ -121,6 +123,7 @@ class WidgetProvider : AppWidgetProvider() {
             views.setTextViewText(R.id.big, "GLM")
             views.setTextViewText(R.id.sub, msg)
             views.setTextViewText(R.id.row2, "")
+            views.setOnClickPendingIntent(R.id.refresh_btn, pendingRefresh(ctx))
             views.setOnClickPendingIntent(R.id.root, pendingRefresh(ctx))
             return views
         }

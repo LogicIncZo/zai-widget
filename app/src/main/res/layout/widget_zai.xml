@@ -89,5 +89,15 @@
                 android:textColor="#8B949E"
                 android:textSize="11sp" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/refresh_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:padding="6dp"
+            android:text="⟳"
+            android:textSize="20sp"
+            android:textColor="#58A6FF" />
     </LinearLayout>
 </LinearLayout>
